@@ -106,6 +106,24 @@ Node* Node::Get_parent() {
 // 
 void Traverse(Node* p, string s) {
 
+	if(p == NULL){
+		return;
+	}
+	//Pre-order traversal
+	if(s == "pre"){
+		cout << p->Get_key();
+		Traverse(p->Get_left(), s);
+		Traverse(p->Get_right(), s);
+	}
+	//Post-order traversal
+	else if(s == "post"){
+		Traverse(p->Get_left(), s);
+        Traverse(p->Get_right(), s);
+        cout << p->Get_key();
+	}
+	else{
+		cout << "-1";
+	}
 }
 
 // 
@@ -127,7 +145,7 @@ void Traverse(Node* p, string s) {
 // that are called by Height. 
 // 
 int Height(Node* root) {
-
+	return 0;
 }
 
 // 
@@ -172,7 +190,9 @@ int Height(Node* root) {
 // 
 Node* Convert2Array(Node* root, int height) {
 
+	Node* result;
 
+	return result;
 }
 
 // There is nothing you need to do 
@@ -226,14 +246,14 @@ int main()
 	}
 	// Mode 4: test Height function 
 	else if (mode == 4) {
-		cout << Height(root);
+		//cout << Height(root);
 	}
 	// Mode 5: test Convert2Array function 
 	else if (mode == 5) {
-		Node *arr = Convert2Array(root, Height(root));
-		for (int i = 0; i < pow(2, Height(root) + 1) - 1; i++) {
-			cout << arr[i].Get_key();
-		};
+		//Node *arr = Convert2Array(root, Height(root));
+		//for (int i = 0; i < pow(2, Height(root) + 1) - 1; i++) {
+			//cout << arr[i].Get_key();
+		//};
 	}
 
 	return 0;
