@@ -107,7 +107,7 @@ Node* Node::Get_parent() {
 // in the printout. Just print key.
 // 
 void Traverse(Node* p, string s) {
-
+	//Base Case
 	if(p == NULL){
 		return;
 	}
@@ -138,17 +138,21 @@ void Traverse(Node* p, string s) {
             Node* current = nodeQueue.front();
             nodeQueue.pop();
 
+			//Output current key
             cout << current->Get_key();
 
+			//Update current to left if it exsits
             if (current->Get_left()) {
                 nodeQueue.push(current->Get_left());
             }
+			//Update current to right if it exsits
             if (current->Get_right()) {
                 nodeQueue.push(current->Get_right());
             }
         }
 	}
 	else{
+		//If s is invalid
 		cout << "-1";
 	}
 }
@@ -171,19 +175,24 @@ void Traverse(Node* p, string s) {
 // additional (recursive) functions 
 // that are called by Height. 
 //
+
+//Returns the height plus one recursivly
 int heightPlusOne(Node* root){
+	//Base Case
 	if (root == nullptr) {
         return 0; // An empty tree has a height of 0.
     }
-
+	//Recusrsive call for left
     int leftHeight = heightPlusOne(root->Get_left());
+	//Recusrsive call for right
     int rightHeight = heightPlusOne(root->Get_right());
 
-    // Return the maximum height of its left and right subtrees.
+    // Return leftHeight plus 1 if its bigger, rightHeight + 1 if it is not
     if (leftHeight > rightHeight) return 1 + leftHeight;
  	else return 1 + rightHeight;
 }
 
+//Calls height plus one, decrements value, returns result
 int Height(Node* root) {
 	int height = heightPlusOne(root);
 	return --height;
@@ -229,12 +238,13 @@ int Height(Node* root) {
 // as an example.)
 // 
 Node* Convert2Array(Node* root, int height) {
-
+	//Get array size with given formula
 	double arraySizeDouble = pow(2.0, (double)height + 1.0) - 1.0;
+	//Convert to int
 	int arraySizeInt = (int)arraySizeDouble;
-
+	//Dynamically allocate array with size
 	Node* list2Array = new Node[arraySizeInt];
-
+	//Fill array with "empty" nodes
 	for(int i = 0; i < arraySizeInt; ++i){
 		Node temp;
 		list2Array[i].Set_key(temp.Get_key());
@@ -243,6 +253,7 @@ Node* Convert2Array(Node* root, int height) {
 		list2Array[i].Set_parent(temp.Get_parent());
 	}
 
+	//Reuse Breadth-first traversal algorithm for inputting key values
 	Node* p = root;
 
 	queue<Node*> nodeQueue;
