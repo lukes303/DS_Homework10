@@ -72,6 +72,7 @@ Node* Node::Get_parent() {
 	return parent;
 }
 
+
 // 
 // -------------------------------
 // ---------- Task 1 -------------
@@ -169,11 +170,24 @@ void Traverse(Node* p, string s) {
 // You are also welcome to design any 
 // additional (recursive) functions 
 // that are called by Height. 
-// 
-int Height(Node* root) {
-	return 0;
+//
+int heightPlusOne(Node* root){
+	if (root == nullptr) {
+        return 0; // An empty tree has a height of 0.
+    }
+
+    int leftHeight = heightPlusOne(root->Get_left());
+    int rightHeight = heightPlusOne(root->Get_right());
+
+    // Return the maximum height of its left and right subtrees.
+    if (leftHeight > rightHeight) return 1 + leftHeight;
+ 	else return 1 + rightHeight;
 }
 
+int Height(Node* root) {
+	int height = heightPlusOne(root);
+	return --height;
+}
 // 
 // -------------------------------
 // ---------- Task 3 -------------
@@ -216,9 +230,43 @@ int Height(Node* root) {
 // 
 Node* Convert2Array(Node* root, int height) {
 
-	Node* result;
+	double arraySizeDouble = pow(2.0, (double)height + 1.0) - 1.0;
+	int arraySizeInt = (int)arraySizeDouble;
 
-	return result;
+	Node* list2Array = new Node[arraySizeInt];
+
+	for(int i = 0; i < arraySizeInt; ++i){
+		Node temp;
+		list2Array[i].Set_key(temp.Get_key());
+		list2Array[i].Set_left(temp.Get_left());
+		list2Array[i].Set_right(temp.Get_right());
+		list2Array[i].Set_parent(temp.Get_parent());
+	}
+
+	Node* p = root;
+
+	queue<Node*> nodeQueue;
+    nodeQueue.push(p);
+
+	int i = 0;
+
+    while (!nodeQueue.empty()) {
+        Node* current = nodeQueue.front();
+        nodeQueue.pop();
+
+        list2Array[i].Set_key(current->Get_key());
+
+        if (current->Get_left()) {
+            nodeQueue.push(current->Get_left());
+        }
+        if (current->Get_right()) {
+            nodeQueue.push(current->Get_right());
+        }
+		
+		i++;
+    }
+
+	return list2Array;
 }
 
 // There is nothing you need to do 
@@ -272,14 +320,14 @@ int main()
 	}
 	// Mode 4: test Height function 
 	else if (mode == 4) {
-		//cout << Height(root);
+		cout << Height(root);
 	}
 	// Mode 5: test Convert2Array function 
 	else if (mode == 5) {
-		//Node *arr = Convert2Array(root, Height(root));
-		//for (int i = 0; i < pow(2, Height(root) + 1) - 1; i++) {
-			//cout << arr[i].Get_key();
-		//};
+		Node *arr = Convert2Array(root, Height(root));
+		for (int i = 0; i < pow(2, Height(root) + 1) - 1; i++) {
+			cout << arr[i].Get_key();
+		};
 	}
 
 	return 0;
