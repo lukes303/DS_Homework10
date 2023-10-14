@@ -121,6 +121,13 @@ void Traverse(Node* p, string s) {
         Traverse(p->Get_right(), s);
         cout << p->Get_key();
 	}
+	// In-order traversal
+	else if (s == "in") {
+        Traverse(p->Get_left(), s);
+        cout << p->Get_key();
+        Traverse(p->Get_right(), s);
+	}
+	
 	else{
 		cout << "-1";
 	}
