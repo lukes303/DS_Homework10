@@ -182,9 +182,9 @@ int heightPlusOne(Node* root){
 	if (root == nullptr) {
         return 0; // An empty tree has a height of 0.
     }
-	//Recusrsive call for left
+	//Recursive call for left
     int leftHeight = heightPlusOne(root->Get_left());
-	//Recusrsive call for right
+	//Recursive call for right
     int rightHeight = heightPlusOne(root->Get_right());
 
     // Return leftHeight plus 1 if its bigger, rightHeight + 1 if it is not
