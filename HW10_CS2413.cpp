@@ -21,6 +21,7 @@
 // 
 #include <iostream>
 #include <cmath>
+#include <queue>
 using namespace std;
 
 class Node {
@@ -127,7 +128,25 @@ void Traverse(Node* p, string s) {
         cout << p->Get_key();
         Traverse(p->Get_right(), s);
 	}
-	
+	// Breadth-first traversal
+	else if (s == "bf") {
+        queue<Node*> nodeQueue;
+        nodeQueue.push(p);
+
+        while (!nodeQueue.empty()) {
+            Node* current = nodeQueue.front();
+            nodeQueue.pop();
+
+            cout << current->Get_key();
+
+            if (current->Get_left()) {
+                nodeQueue.push(current->Get_left());
+            }
+            if (current->Get_right()) {
+                nodeQueue.push(current->Get_right());
+            }
+        }
+	}
 	else{
 		cout << "-1";
 	}
